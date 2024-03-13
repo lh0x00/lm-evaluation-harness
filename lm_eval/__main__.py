@@ -4,6 +4,7 @@ import logging
 import os
 import re
 import sys
+import torch
 from functools import partial
 from pathlib import Path
 from typing import Union
@@ -211,6 +212,13 @@ def setup_parser() -> argparse.ArgumentParser:
         help="Use with --log_samples. Only model outputs will be saved and metrics will not be evaluated.",
     )
     parser.add_argument(
+        "--flash_attn",
+        "-l",
+        action="store_true",
+        default=False,
+        help="Use with --flash_attn. Disable `enable_mem_efficient_sdp` and `enable_flash_sdp`.",
+    )
+    parser.add_argument(
         "--seed",
         type=partial(_int_or_none_list_arg_type, 3),
         default="0,1234,1234",  # for backward compatibility
@@ -261,6 +269,10 @@ def cli_evaluate(args: Union[argparse.Namespace, None] = None) -> None:
     if args.include_path is not None:
         eval_logger.info(f"Including path: {args.include_path}")
     task_manager = TaskManager(args.verbosity, include_path=args.include_path)
+
+    if not args.flash_attn:
+        torch.backends.cuda.enable_mem_efficient_sdp(False)
+        torch.backends.cuda.enable_flash_sdp(False)
 
     if args.limit:
         eval_logger.warning(
