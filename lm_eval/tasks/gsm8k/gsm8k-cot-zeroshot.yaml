@@ -19,6 +19,7 @@ metric_list:
       - ","
       - "\\$"
       - "(?s).*#### "
+      - "(?s).*RESULTS: "
       # - "(?s).*(RESULTS:([\D\$]+))"
       - "\\.$"
 generation_kwargs:
