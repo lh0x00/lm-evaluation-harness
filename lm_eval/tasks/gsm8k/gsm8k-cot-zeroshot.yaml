@@ -18,7 +18,8 @@ metric_list:
     regexes_to_ignore:
       - ","
       - "\\$"
-      - "(?s).*#### "
+      # - "(?s).*#### "
+      - "(?s).*(RESULTS:([\D\$]+))"
       - "\\.$"
 generation_kwargs:
   until:
@@ -32,7 +33,7 @@ filter_list:
       - function: "regex"
         group_select: -1
         # regex_pattern: "The answer is (\\-?[0-9\\.\\,]+)."
-        regex_pattern: '((RESULTS:([\D]+))((-?[$0-9.,]{2,})|(-?[0-9]+)))'
+        regex_pattern: '((RESULTS:([\D\$]+))((-?[$0-9.,]{2,})|(-?[0-9]+)))'
       - function: "take_first"
   - name: "flexible-extract"
     filter:
