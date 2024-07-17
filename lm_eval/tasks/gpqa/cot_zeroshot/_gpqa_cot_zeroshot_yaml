@@ -13,13 +13,13 @@ filter_list:
     filter:
       - function: "regex"
         group_select: -1
-        regex_pattern: "((?<=Therefore)|(?<=The answer is )|(?<=Conclusion))(.*)(?=.)"
+        regex_pattern: "(((?<=Therefore)|(?<=The answer is )|(?<=Conclusion))(.*)(?=.))"
       - function: "take_first"
   - name: "flexible-extract"
     filter:
       - function: "regex"
         group_select: -1
-        regex_pattern: "((?<=Therefore)|(?<=The answer is )|(?<=Conclusion))(.*)(?=.)"
+        regex_pattern: "(((?<=Therefore)|(?<=The answer is )|(?<=Conclusion))(.*)(?=.))"
       - function: "multi_choice_regex"
         group_select: -1
         ignore_case: true
