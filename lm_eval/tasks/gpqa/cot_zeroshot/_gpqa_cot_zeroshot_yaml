@@ -12,7 +12,8 @@ filter_list:
   - name: "strict-match"
     filter:
       - function: "regex"
-        regex_pattern: "(?<=((answer is |Conclusion)))(.*)(?=.)"
+        group_select: -1
+        regex_pattern: "((?<=((answer is |Conclusion)))(.*)(?=.))"
       - function: "take_first"
   - name: "flexible-extract"
     filter:
